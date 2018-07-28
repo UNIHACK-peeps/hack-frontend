@@ -57,10 +57,8 @@ const App = () => (
 );
 
 const Login = () => (
-  <div>
-    <p>Login!</p>
-
-    <p><Link to="/dashboard">Continue...</Link></p>
+  <div className="container">
+    <LoginForm/>
   </div>
 );
 
@@ -146,6 +144,57 @@ const Profile = () => (
  *
  *
 */
+class LoginForm extends React.Component{
+  render = () => {
+    return (
+      <div>
+        <div className="row">
+            <form className="col s12">
+              <div className="row">
+                <div className="input-field col s6">
+                  <input placeholder="Placeholder" id="first_name" type="text" className="validate"/>
+                  <label for="first_name">First Name</label>
+                </div>
+                <div className="input-field col s6">
+                  <input id="last_name" type="text" className="validate"/>
+                  <label for="last_name">Last Name</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="input-field col s12">
+                  <input disabled value="I am not editable" id="disabled" type="text" className="validate"/>
+                  <label for="disabled">Disabled</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="input-field col s12">
+                  <input id="password" type="password" className="validate"/>
+                  <label for="password">Password</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="input-field col s12">
+                  <input id="email" type="email" className="validate"/>
+                  <label for="email">Email</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col s12">
+                  This is an inline input field:
+                  <div className="input-field inline">
+                    <input id="email_inline" type="email" className="validate"/>
+                    <label for="email_inline">Email</label>
+                    <span className="helper-text" data-error="wrong" data-success="right">Helper text</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+            <p><Link to="/dashboard">Continue...</Link></p>
+      </div>
+    )
+  }
+}
 class NotificationHub extends React.Component {
   componentWillMount = () => {
     axios.get('http://127.0.0.1:8000/main/Notifications/?user_id=1')
@@ -242,7 +291,7 @@ class NavBar extends React.Component {
       <div>
         <nav>
           <div style={{paddingLeft:'30px', paddingRight:'10px'}}className="nav-wrapper blue lighten-2 class" >
-            <a href="#" className="brand-logo">Logo</a>
+            <Link to='/'><a href="#" className="brand-logo">Logo</a></Link>
 
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               {
