@@ -79,11 +79,11 @@ const Dashboard = () => (
       </div>
     	<div class="row">
     		<div className = "col s5">
-          		<MyTutors/>
+          		<MyTutorWrapper/>
         	</div>
         	<div className="col s2"></div>
         	<div className = "col s5">
-        		<MyStudents/>
+        		<MyStudentsWrapper/>
        		</div>
     	</div>
       </div>
@@ -614,41 +614,49 @@ class UserProfile extends React.Component {
         </div>
           )
 }
+class MyTutorWrapper extends React.Component {
+  state = {
+    tutorList:[]
+  }
+  componentWillMount = () => (
+    axios.get('http://127.0.0.1:8000/main/getMyTutors/?user_id=1')
+    .then((response) => {
+      console.log(response);
+      this.setState({'tutorList':response.data})
+      console.log("state")
+      console.log(this.state.tutorList)
+    })
+  )
 
-const MyTutors = () => (
-  <div>
-  
-  <div id="dashboard-subheading">My Tutors</div>
-  
-    <div className="card horizontal">
-      <div className="card-stacked">
-        <div className="card-content">
-          <h4> Name </h4>
-          <p>Subject: blah</p>
-          <p>email: test@meme.com</p>
-          <p>phone: 12346137183</p>
-        </div>
-        <div className="card-action">
-          <a href="#">Remove</a>
+  render = () => (
+    <div>
+      {this.state.tutorList.map(tutorItem =>  <MyTutors tutor = {tutorItem} />)} 
+    </div>
+  )
+}
+class MyTutors extends React.Component {
+
+    render = () => (
+      <div>
+      
+      <div id="dashboard-subheading">My Tutors</div>
+      
+        <div className="card horizontal">
+          <div className="card-stacked">
+            <div className="card-content">
+              <h4> {this.props.tutor.name}  </h4>
+              <p>Subject: blah</p>
+              <p>email: test@meme.com</p>
+              <p>phone: 12346137183</p>
+            </div>
+            <div className="card-action">
+              <a href="#">Remove</a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <div className="card horizontal">
-      <div className="card-stacked">
-        <div className="card-content">
-          <h4> Name </h4>
-          <p>Subject: blah</p>
-          <p>email: test@meme.com</p>
-          <p>phone: 12346137183</p>
-        </div>
-        <div className="card-action">
-          <a href="#">Remove</a>
-        </div>
-      </div>
-    </div>
-  </div>
-)
+    )
+}
 
 class NotifItem extends React.Component {
 
@@ -683,7 +691,29 @@ class NotifItem extends React.Component {
     </div>
   )
 }
-const MyStudents = () => (
+
+class MyStudentsWrapper extends React.Component {
+  state = {
+    tuteeList:[]
+  }
+  componentWillMount = () => (
+    axios.get('http://127.0.0.1:8000/main/getMyTutees/?user_id=2')
+    .then((response) => {
+      console.log("tutees")
+      console.log(response);
+      this.setState({'tuteeList':response.data})
+    })
+  )
+
+  render = () => (
+    <div>
+      {this.state.tuteeList.map(tuteeItem =>  <MyStudents tutee = {tuteeItem} />)} 
+    </div>
+  )
+}
+class MyStudents extends React.Component {
+
+render = () => (
   <div> 
   
   <div id="dashboard-subheading">My Students</div>
@@ -691,7 +721,7 @@ const MyStudents = () => (
     <div className="card horizontal">
       <div className="card-stacked">
         <div className="card-content">
-          <h4> Name </h4>
+          <h4> {this.props.tutee.name} </h4>
           <p>Subject: blah</p>
           <p>email: test@meme.com</p>
           <p>phone: 12346137183</p>
@@ -701,21 +731,7 @@ const MyStudents = () => (
         </div>
       </div>
     </div>
-    
-    <div className="card horizontal">
-      <div className="card-stacked">
-        <div className="card-content">
-          <h4> Name </h4>
-          <p>Subject: blah</p>
-          <p>email: test@meme.com</p>
-          <p>phone: 12346137183</p>
-        </div>
-        <div className="card-action">
-          <a href="#">Remove</a>
-        </div>
-      </div>
     </div>
-  </div>
 )
-
+}
 export default App;
