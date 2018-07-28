@@ -162,12 +162,6 @@ class LoginForm extends React.Component{
               </div>
               <div className="row">
                 <div className="input-field col s12">
-                  <input disabled value="I am not editable" id="disabled" type="text" className="validate"/>
-                  <label for="disabled">Disabled</label>
-                </div>
-              </div>
-              <div className="row">
-                <div className="input-field col s12">
                   <input id="password" type="password" className="validate"/>
                   <label for="password">Password</label>
                 </div>
@@ -178,19 +172,9 @@ class LoginForm extends React.Component{
                   <label for="email">Email</label>
                 </div>
               </div>
-              <div className="row">
-                <div className="col s12">
-                  This is an inline input field:
-                  <div className="input-field inline">
-                    <input id="email_inline" type="email" className="validate"/>
-                    <label for="email_inline">Email</label>
-                    <span className="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                  </div>
-                </div>
-              </div>
             </form>
           </div>
-            <p><Link to="/dashboard">Continue...</Link></p>
+          <Link to="/dashboard"><a onClick={this.handleSubmit} className="waves-effect waves-light btn  light-green">Submit</a></Link>
       </div>
     )
   }
@@ -289,7 +273,9 @@ class NavBar extends React.Component {
       <div>
         <nav>
           <div style={{paddingLeft:'30px', paddingRight:'10px'}}className="nav-wrapper teal lighten-2 class">
-            <a className="brand-logo"><img src="favicon-pear.png" style={{paddingtop:'10px'}}></img> Pear</a>
+            <Link to="/dashboard">
+              <a className="brand-logo"><img src="favicon-pear.png" style={{paddingtop:'10px'}}></img> Pear</a>
+            </Link>
 
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               {
