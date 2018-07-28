@@ -57,10 +57,8 @@ const App = () => (
 );
 
 const Login = () => (
-  <div>
-    <p>Login!</p>
-
-    <p><Link to="/dashboard">Continue...</Link></p>
+  <div className="container">
+    <LoginForm/>
   </div>
 );
 
@@ -123,14 +121,13 @@ const Request = () => (
     <div className = "row">
      <div class="col s12">
       <div class="card">
-        <div class="card-content white-text">
+        <div class="card-content">
           <div id="request-p">Select a subject</div>
           <RequestForm/>
         </div>
        </div>
      </div>
     </div> 
->>>>>>> fa1eaf04e750a5ba14638c55871023d3d74b16b2
     </div>
   </div>
 );
@@ -147,6 +144,57 @@ const Profile = () => (
  *
  *
 */
+class LoginForm extends React.Component{
+  render = () => {
+    return (
+      <div>
+        <div className="row">
+            <form className="col s12">
+              <div className="row">
+                <div className="input-field col s6">
+                  <input placeholder="Placeholder" id="first_name" type="text" className="validate"/>
+                  <label for="first_name">First Name</label>
+                </div>
+                <div className="input-field col s6">
+                  <input id="last_name" type="text" className="validate"/>
+                  <label for="last_name">Last Name</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="input-field col s12">
+                  <input disabled value="I am not editable" id="disabled" type="text" className="validate"/>
+                  <label for="disabled">Disabled</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="input-field col s12">
+                  <input id="password" type="password" className="validate"/>
+                  <label for="password">Password</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="input-field col s12">
+                  <input id="email" type="email" className="validate"/>
+                  <label for="email">Email</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col s12">
+                  This is an inline input field:
+                  <div className="input-field inline">
+                    <input id="email_inline" type="email" className="validate"/>
+                    <label for="email_inline">Email</label>
+                    <span className="helper-text" data-error="wrong" data-success="right">Helper text</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+            <p><Link to="/dashboard">Continue...</Link></p>
+      </div>
+    )
+  }
+}
 class NotificationHub extends React.Component {
   componentWillMount = () => {
     axios.get('http://127.0.0.1:8000/main/Notifications/?user_id=1')
@@ -181,7 +229,7 @@ class NotificationHub extends React.Component {
     notifications: [
       {
         isTutor: true,
-        description: "Yert",
+        description: "I'm interested in learning some English jokes to lighten the mood when I visit my host family",
         subjectId:1,
         name: "Greg",
         subject:"English"
@@ -198,7 +246,7 @@ class NotificationHub extends React.Component {
   render = () => (
     <div>
       {this.state.notifications.map((notificationObject) => (
-         <div id = "row">
+         <div id = "row" key = {newId()}>
            <div className = "col s6">
              <NotifItem info={notificationObject}/>
            </div>
@@ -243,7 +291,7 @@ class NavBar extends React.Component {
       <div>
         <nav>
           <div style={{paddingLeft:'30px', paddingRight:'10px'}}className="nav-wrapper blue lighten-2 class" >
-            <a href="#" className="brand-logo">Logo</a>
+            <Link to='/'><a href="#" className="brand-logo">Logo</a></Link>
 
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               {
@@ -411,6 +459,11 @@ class RequestForm extends React.Component {
 
   handleSubmit = () => {
     this.submitData();
+    let newState = Object.assign(
+      {}, this.state, {
+        'submitted':true,
+      });
+    this.setState(newState)
   };
 
   submitData = () => {
@@ -422,6 +475,11 @@ class RequestForm extends React.Component {
   };
 
   render = () => {
+    if (this.state.submitted == true) {
+      return( <div>
+        <p> "Successfully submitted!" </p>
+          </div>)
+    }
     return (
       <div className="entryField">
         <TopicSelector
@@ -607,7 +665,7 @@ class UserProfile extends React.Component {
               				</ul>
         				</div>
         				<div className="card-action">
-          					<a href="#">Edit your profile</a>
+          					<Link to="/profile"><a href="#">Edit your profile</a></Link>
         				</div>
       				</div>
     			</div>
@@ -664,34 +722,89 @@ class NotifItem extends React.Component {
     <div>
       <div className="card horizontal">
         <div className="card-stacked">
-          <div className="card-content white-tex">
-            <h4>
-              <b>{this.props.info.name} </b>
-              matched with you as a 
-              <b> {
-                this.props.info.isTutor ?
-                "Tutor" :
-                "Tutee"
-              } </b>
-              for
-              <b> {this.props.info.subject}</b>
-            </h4>
-            <b><p>Description</p></b>
-            <h6 className=""><em>
-              {this.props.info.description}
-            </em></h6>
-          </div>
-          <div class="card-action ">
-            <a href="#" class="green-text">Accept</a>
-            <a href="#" class="red-text">Dismiss</a>
-            <a href="#" class="">See Profile</a>
-          </div>
+          <TutorTuteeText
+            name={this.props.info.name}
+            subject={this.props.info.subject}
+            isTutor={this.props.info.isTutor}
+            description={this.props.info.description}
+          />
         </div>
       </div>
     </div>
   )
 }
 
+
+class TutorTuteeText extends React.Component {
+  render = () => {
+    if (this.props.isTutor) {
+      return(
+        <div>
+
+          <div className="card-content white-tex">
+            <h4>
+              <b>{this.props.name} </b>
+              has accepted your offer to <b>Tutor</b> you
+              <b> {this.props.subject}</b>
+            </h4>
+            <br/>
+            <h5> <b>
+              { this.props.isTutor ?
+                "Your request" :
+                "Their request"
+              }
+            </b></h5>
+            <b><p>Description</p></b>
+            <h6 className=""><em>
+              {this.props.description}
+            </em></h6>
+            <b><p>Frequency:</p></b>
+            <h6 className=""><em>
+              Infrequent
+            </em></h6>
+          </div>
+          <div class="card-action ">
+            <a href="#" class="green-text" >Contact</a>
+          </div>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div>
+          <div className="card-content white-tex">
+            <h4>
+              <b>{this.props.name} </b>
+                wants to be <b>Tutored</b> by you in
+              <b> {this.props.subject}</b>
+            </h4>
+            <br/>
+            <h5> <b>
+              { this.props.isTutor ?
+                "Your request" :
+                "Their request"
+              }
+            </b></h5>
+            <b><p>Description</p></b>
+            <h6 className=""><em>
+              {this.props.description}
+            </em></h6>
+            <b><p>Frequency:</p></b>
+            <h6 className=""><em>
+              Infrequent
+            </em></h6>
+          </div>
+          <div class="card-action ">
+            <a href="#" class="green-text" >Accept</a>
+            <a href="#" class="red-text">Dismiss</a>
+            <a href="#" class="">See Profile</a>
+          </div>
+        </div>
+      )
+    }
+  }
+
+}
 class MyStudentsWrapper extends React.Component {
   state = {
     tuteeList:[]
