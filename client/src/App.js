@@ -125,7 +125,7 @@ const Home = () => (
       <h1> Start Learning Today! </h1>
       <p> Share your knowledge and seek help from tutors all over the world! </p>
       <Link to='/signup'>
-        <div className="btn waves-effect waves-light" type="submit" name="action">Sign Up
+        <div className="btn waves-effect waves-light " type="submit" name="action">Sign Up
           <i className="material-icons right">send</i>
         </div>
       </Link>
@@ -137,6 +137,7 @@ const Request = () => (
   <div>
     <NavBar/>
     <div className = "container">
+    <h2> Create a tuition request! </h2>
     <div className = "row">
       <RequestForm/>
       </div>
@@ -386,7 +387,7 @@ class RequestForm extends React.Component {
           selectedTime={this.state.selectedTime}
         />
         <p> {this.state.selectedTime}</p>
-        <a onClick={this.handleSubmit} className="waves-effect waves-light btn">Submit</a>
+        <a onClick={this.handleSubmit} className="waves-effect waves-light btn  light-green">Submit</a>
       </div>
     )
   }
@@ -461,12 +462,13 @@ class TimeButton extends React.Component {
 
     if(this.props.depressed) {
       return(
-        <a onClick={this.handleTimeButtonClick} className="waves-effect waves-teal btn">{this.props.children}</a>
+        <a onClick={this.handleTimeButtonClick} className="request-time-button waves-effect teal darken-4 waves-teal #004d40 teal darken-4
+ btn">{this.props.children}</a>
       );
 
     } else {
       return(
-        <a onClick={this.handleTimeButtonClick} className="waves-effect btn">{this.props.children}</a>
+        <a onClick={this.handleTimeButtonClick} className="request-time-button waves-effect btn">{this.props.children}</a>
       );
     };
   };
