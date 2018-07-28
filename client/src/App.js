@@ -60,7 +60,7 @@ const Login = () => (
   <div>
     <p>Login!</p>
 
-    <p><Link to="/Dashboard">Continue...</Link></p>
+    <p><Link to="/dashboard">Continue...</Link></p>
   </div>
 );
 
