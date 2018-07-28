@@ -71,13 +71,12 @@ const Signup = () => (
 const Dashboard = () => (
   <div>
     <NavBar/>
-    <div className = "container">
-    	<div class="row col s12">
-    			<div>
-          			<UserProfile/>
-       			</div>
-       	</div>
-    	
+    <div className = "container" >
+      <div className="row col s12">
+        <div>
+          <UserProfile/>
+        </div>
+      </div>
     	<div class="row">
     		<div className = "col s5">
           		<MyTutors/>
@@ -87,9 +86,6 @@ const Dashboard = () => (
         		<MyStudents/>
        		</div>
     	</div>
-        
-        
-        
       </div>
   </div>
 );
@@ -99,21 +95,7 @@ const Notifications = () => (
     <NavBar/>
     <div className = "container">
       <h2 class="heavy"> Notifications </h2>
-      <div id = "row">
-        <div className = "col s6">
-          <NotifItem/>
-        </div>
-      </div>
-      <div id = "row">
-        <div className = "col s6">
-          <NotifItem/>
-        </div>
-      </div>
-      <div id = "row">
-        <div className = "col s6">
-          <NotifItem/>
-        </div>
-      </div>
+      <NotificationHub/>
     </div>
   </div>
 );
@@ -167,6 +149,39 @@ const Profile = () => (
  *
  *
 */
+class NotificationHub extends React.Component {
+  state = {
+    notifications: [
+      {
+        isTutor: true,
+        description: "Yert",
+        subjectId:1,
+        name: "Greg",
+        subject:"English"
+      },
+      {
+        isTutor: false,
+        description: "yert the gert my ligma",
+        subjectId:2,
+        name: "Bethany",
+        subject:"Maths"
+      }
+    ],
+  };
+
+  render = () => (
+    <div>
+      {this.state.notifications.map((notificationObject) => (
+         <div id = "row">
+           <div className = "col s6">
+             <NotifItem info={notificationObject}/>
+           </div>
+         </div>
+      )
+      )};
+    </div>
+  );
+};
 
 class NavBar extends React.Component {
   state = {
@@ -577,26 +592,39 @@ const MyTutors = () => (
   </div>
 )
 
-const NotifItem = () => (
-  <div>
-    <div className="card horizontal">
-      <div className="card-stacked">
-        <div className="card-content white-tex">
-          <h4><b>Name</b> matched with you as a tutor!</h4>
-          <b><p>Description</p></b>
-          <h6 className=""><em>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-          </em></h6>
-        </div>
-        <div class="card-action ">
-          <a href="#" class="green-text">Accept</a>
-          <a href="#" class="red-text">Dismiss</a>
-          <a href="#" class="">See Profile</a>
+class NotifItem extends React.Component {
+
+  render = () => (
+    <div>
+      <div className="card horizontal">
+        <div className="card-stacked">
+          <div className="card-content white-tex">
+            <h4>
+              <b>{this.props.info.name} </b>
+              matched with you as a 
+              <b> {
+                this.props.info.isTutor ?
+                "Tutor" :
+                "Tutee"
+              } </b>
+              for
+              <b> {this.props.info.subject}</b>
+            </h4>
+            <b><p>Description</p></b>
+            <h6 className=""><em>
+              {this.props.info.description}
+            </em></h6>
+          </div>
+          <div class="card-action ">
+            <a href="#" class="green-text">Accept</a>
+            <a href="#" class="red-text">Dismiss</a>
+            <a href="#" class="">See Profile</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
 const MyStudents = () => (
   <div> 
   
