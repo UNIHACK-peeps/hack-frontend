@@ -140,7 +140,17 @@ const Request = () => (
     <h2> Create a tuition request! </h2>
     <div className = "row">
       <RequestForm/>
-      </div>
+    <h3>Start searching for tutors!</h3>
+     <div class="col s12">
+      <div class="card">
+        <div class="card-content white-text">
+          <div id="request-p">Select a subject</div>
+          <RequestForm/>
+        </div>
+       </div>
+    </div>
+    
+    </div> 
     </div>
   </div>
 );
@@ -442,6 +452,7 @@ class TimeSelector extends React.Component {
       <div>
         <div>
           <p>How long will this take? (roughly)</p>
+          <p>How long will this take? (Roughly)</p>
         </div>
         <div className="durationSelectBar">
           {timesButtons}
