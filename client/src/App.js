@@ -121,8 +121,6 @@ const Request = () => (
     <div className = "container">
     <h2> Create a tuition request! </h2>
     <div className = "row">
-      <RequestForm/>
-    <h3>Start searching for tutors!</h3>
      <div class="col s12">
       <div class="card">
         <div class="card-content white-text">
@@ -130,9 +128,9 @@ const Request = () => (
           <RequestForm/>
         </div>
        </div>
-    </div>
-    
+     </div>
     </div> 
+>>>>>>> fa1eaf04e750a5ba14638c55871023d3d74b16b2
     </div>
   </div>
 );
@@ -281,7 +279,7 @@ class NavBar extends React.Component {
 const HomeNavBar = () => (
   <div>
     <nav>
-      <div className="nav-wrapper teal lighten-2 class">
+      <div style={{paddingLeft:'30px', paddingRight:'10px'}} className="nav-wrapper teal lighten-2 class">
         <a href="#" className="brand-logo">Logo</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><Link to='/'>About Us</Link></li>
@@ -494,10 +492,9 @@ class TimeSelector extends React.Component {
     return (
       <div>
         <div>
-          <p>How long will this take? (roughly)</p>
           <p>How long will this take? (Roughly)</p>
         </div>
-        <div className="durationSelectBar">
+        <div>
           {timesButtons}
         </div>
       </div>
@@ -516,13 +513,12 @@ class TimeButton extends React.Component {
 
     if(this.props.depressed) {
       return(
-        <a onClick={this.handleTimeButtonClick} className="request-time-button waves-effect teal darken-4 waves-teal #004d40 teal darken-4
- btn">{this.props.children}</a>
+        <a onClick={this.handleTimeButtonClick} className="btn waves-effect waves-light blue">{this.props.children}</a>
       );
 
     } else {
       return(
-        <a onClick={this.handleTimeButtonClick} className="request-time-button waves-effect btn">{this.props.children}</a>
+        <a onClick={this.handleTimeButtonClick} className="btn waves-effect waves-teal blue lighten-3">{this.props.children}</a>
       );
     };
   };
@@ -537,11 +533,18 @@ class TopicSelector extends React.Component {
   });
 
   handleChange = (selectedOption) => {
+    let newState = Object.assign(
+      {}, this.state, {
+        selectedOption:  (selectedOption  ? selectedOption.label : "")
+      }
+    );
+
+    this.setState(newState);
 
     console.log("Changed to ")
-    console.log(selectedOption)
+    console.log(this.state.selectedOption)
 
-    this.props.onChange(selectedOption.value);
+    this.props.onChange(selectedOption.label);
   };
 
   render = () => {
