@@ -123,7 +123,7 @@ const Request = () => (
     <div className = "row">
      <div class="col s12">
       <div class="card">
-        <div class="card-content white-text">
+        <div class="card-content">
           <div id="request-p">Select a subject</div>
           <RequestForm/>
         </div>
@@ -411,6 +411,11 @@ class RequestForm extends React.Component {
 
   handleSubmit = () => {
     this.submitData();
+    let newState = Object.assign(
+      {}, this.state, {
+        'submitted':true,
+      });
+    this.setState(newState)
   };
 
   submitData = () => {
@@ -422,6 +427,11 @@ class RequestForm extends React.Component {
   };
 
   render = () => {
+    if (this.state.submitted == true) {
+      return( <div>
+        <p> "Successfully submitted!" </p>
+          </div>)
+    }
     return (
       <div className="entryField">
         <TopicSelector
@@ -664,7 +674,7 @@ class NotifItem extends React.Component {
     <div>
       <div className="card horizontal">
         <div className="card-stacked">
-          <div className="card-content white-tex">
+          <div className="card-content">
             <h4>
               <b>{this.props.info.name} </b>
               matched with you as a 
