@@ -119,20 +119,15 @@ const Request = () => (
   <div>
     <NavBar/>
     <div className = "container">
-    <h2> Create a tuition request! </h2>
-    <div className = "row">
-      <RequestForm/>
-    <h3>Start searching for tutors!</h3>
-     <div class="col s12">
-      <div class="card">
-        <div class="card-content white-text">
-          <div id="request-p">Select a subject</div>
-          <RequestForm/>
+      <h3>Start searching for tutors!</h3>
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content white-text">
+            <div id="request-p">Select a subject</div>
+            <RequestForm/>
         </div>
        </div>
-    </div>
-    
-    </div> 
+      </div>
     </div>
   </div>
 );
@@ -466,10 +461,9 @@ class TimeSelector extends React.Component {
     return (
       <div>
         <div>
-          <p>How long will this take? (roughly)</p>
           <p>How long will this take? (Roughly)</p>
         </div>
-        <div className="durationSelectBar">
+        <div>
           {timesButtons}
         </div>
       </div>
@@ -488,13 +482,12 @@ class TimeButton extends React.Component {
 
     if(this.props.depressed) {
       return(
-        <a onClick={this.handleTimeButtonClick} className="request-time-button waves-effect teal darken-4 waves-teal #004d40 teal darken-4
- btn">{this.props.children}</a>
+        <a onClick={this.handleTimeButtonClick} className="btn waves-effect waves-light blue">{this.props.children}</a>
       );
 
     } else {
       return(
-        <a onClick={this.handleTimeButtonClick} className="request-time-button waves-effect btn">{this.props.children}</a>
+        <a onClick={this.handleTimeButtonClick} className="btn waves-effect waves-teal blue lighten-3">{this.props.children}</a>
       );
     };
   };
@@ -509,11 +502,18 @@ class TopicSelector extends React.Component {
   });
 
   handleChange = (selectedOption) => {
+    let newState = Object.assign(
+      {}, this.state, {
+        selectedOption:  (selectedOption  ? selectedOption.label : "")
+      }
+    );
+
+    this.setState(newState);
 
     console.log("Changed to ")
-    console.log(selectedOption)
+    console.log(this.state.selectedOption)
 
-    this.props.onChange(selectedOption.value);
+    this.props.onChange(selectedOption.label);
   };
 
   render = () => {
