@@ -28,3 +28,26 @@
 }
 
 .body {font-family: Arial, Helvetica, sans-serif;}
+
+
+.homepage-bg-img {
+  background-position: center;
+  background-image: url("https://i.imgur.com/x1363uB.jpg");
+  position:absolute; 
+  display:block;
+  height:100%; 
+  width:100%;
+}
+
+.homepage-float-text-container {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(0%,-50%);
+  -ms-transform: translate(-0%,-50%);
+  margin-left:5%;
+  background-color:rgba(0, 0, 0, 0.748);
+  border: 3px solid black;
+  color: white;
+  padding: 20px;
+}

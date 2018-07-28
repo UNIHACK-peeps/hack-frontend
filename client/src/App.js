@@ -60,7 +60,7 @@ const Login = () => (
   <div>
     <p>Login!</p>
 
-    <p><Link to="/Dashboard">Continue...</Link></p>
+    <p><Link to="/dashboard">Continue...</Link></p>
   </div>
 );
 
@@ -87,22 +87,50 @@ const Dashboard = () => (
 const Notifications = () => (
   <div>
     <NavBar/>
-    <p>Notifications!</p>
+    <div className = "container">
+      <h2 class="heavy"> Notifications </h2>
+      <div id = "row">
+        <div className = "col s6">
+          <NotifItem/>
+        </div>
+      </div>
+      <div id = "row">
+        <div className = "col s6">
+          <NotifItem/>
+        </div>
+      </div>
+      <div id = "row">
+        <div className = "col s6">
+          <NotifItem/>
+        </div>
+      </div>
+    </div>
   </div>
 );
 
 const Home = () => (
-  <div>
-    <p>This is home page!</p>
-    <p><Link to="/signup">Sign Up</Link></p>
-    <p><Link to="/login">Login</Link></p>
+  <div className = "homepage-bg-img">
+    <HomeNavBar/> {/* temp, use home page non auth navbar */}
+    <div className = "homepage-float-text-container">
+      <h1> Start Learning Today! </h1>
+      <p> Share your knowledge and seek help from tutors all over the world! </p>
+      <Link to='/signup'>
+        <div className="btn waves-effect waves-light" type="submit" name="action">Sign Up
+          <i className="material-icons right">send</i>
+        </div>
+      </Link>
+    </div>
   </div>
 );
 
 const Request = () => (
   <div>
     <NavBar/>
-    <RequestForm/>
+    <div className = "container">
+    <div className = "row">
+      <RequestForm/>
+      </div>
+    </div>
   </div>
 );
 
@@ -119,23 +147,87 @@ const Profile = () => (
  *
 */
 
-const NavBar = () => (
+class NavBar extends React.Component {
+  state = {
+    selectedButton:null
+  }
+
+  handleNavChange = (key) => {
+    let newState = Object.assign(
+        {}, this.state, {
+          selectedButton:key
+        }
+      );
+
+    this.setState(newState);
+  };
+
+  render = () => {
+    let buttons = [
+      {to:'/dashboard',
+      content:'Dashboard'},
+      {to:'/request',
+      content:'Request'},
+      {to:'/profile',
+       content:'Profile'},
+      {to:'/notifications',
+       content:'Notifications'},
+      {to:'/',
+      content:'Logout'},
+    ];
+    let location = "/" + window.location.href.split("//")[1].split("/")[1];
+
+    return(
+      <div>
+        <nav>
+          <div style={{paddingLeft:'30px', paddingRight:'10px'}}className="nav-wrapper blue lighten-2 class" >
+            <a href="#" className="brand-logo">Logo</a>
+
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              {
+                buttons.map((buttonDict) => (
+                  (buttonDict.to == location) ?
+                  (<NavLink
+                     key={newId()}
+                     to={buttonDict.to}
+                     onClick={this.handleChangeNav}
+                     selected={true}
+                    >
+                    {buttonDict.content}
+                  </NavLink>) :
+                  (<NavLink
+                     key={newId()}
+                     to={buttonDict.to}
+                     onClick={this.handleChangeNav}
+                    >
+                    {buttonDict.content}
+                  </NavLink>) 
+
+
+                ))
+              }
+            </ul>
+          </div>
+        </nav>
+      </div>
+    )
+  };
+};
+
+const HomeNavBar = () => (
   <div>
     <nav>
       <div className="nav-wrapper teal lighten-2 class">
         <a href="#" className="brand-logo">Logo</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><Link to='/dashboard'>Dashboard</Link></li>
-          <li><Link to='/request'>Request</Link></li>
-          <li><Link to='/profile'>Profile</Link></li>
-          <li><Link to='/'>Logout</Link></li>
-          <li><Link to='/notifications'>Notifications</Link></li>
+          <li><Link to='/'>About Us</Link></li>
+          <li><Link to='/login'>Login</Link></li>
+          <li><Link to='/signup'>Signup</Link></li>
         </ul>
       </div>
     </nav>
 </div>
 );
-
 
 const Topics = ({ match }) => (
   <div>
@@ -162,6 +254,25 @@ const Topics = ({ match }) => (
 );
 
 
+class NavLink extends React.Component {
+  handleClick = () => {
+    this.props.onClick(this.props.to);
+  }
+  render = () => {
+
+    let selectedStyle = {
+      color:'blue'
+    };
+
+    return (
+      this.props.selected ?
+      <li className="active"><Link to={this.props.to}>{this.props.children}</Link></li>
+       :
+      <li><Link to={this.props.to} onClick={this.handleClick}>{this.props.children}</Link></li>
+    );
+
+  };
+}
 
 
 class RequestForm extends React.Component {
@@ -242,7 +353,7 @@ class RequestForm extends React.Component {
 
   submitData = () => {
     console.log(
-      "Description: " + this.state.description + 
+      "Description: " + this.state.description +
       "Topic: " + this.state.selectedTopic +
       "Selected Time: " + this.state.selectedTime
     );
@@ -421,4 +532,24 @@ const MyTutors = () => (
   </div>
 )
 
+const NotifItem = () => (
+  <div>
+    <div className="card horizontal">
+      <div className="card-stacked">
+        <div className="card-content white-tex">
+          <h4><b>Name</b> matched with you as a tutor!</h4>
+          <b><p>Description</p></b>
+          <h6 className=""><em>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          </em></h6>
+        </div>
+        <div class="card-action ">
+          <a href="#" class="green-text">Accept</a>
+          <a href="#" class="red-text">Dismiss</a>
+          <a href="#" class="">See Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+)
 export default App;
