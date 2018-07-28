@@ -3,8 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import newId from './utils/newid';
-
-
+import Select from 'react-select';
+import Creatable from 'react-select/lib/Creatable';
 /* const App = () => (
  *   <Router>
  *     <div>
@@ -16,15 +16,15 @@ import newId from './utils/newid';
  *           <Link to="/request">Request</Link>
  *         </li>
  *       </NavBar>
- * 
+ *
  *       <hr />
- * 
+ *
  *       <Route exact path="/" component={Home} />
  *       <Route path="/request" component={Request} />
  *       <Route path="/topics" component={Topics} />
  *     </div>
  *   </Router>
- * 
+ *
  * );
  *  */
 
@@ -96,9 +96,14 @@ const Profile = () => (
   <div>
     <NavBar/>
     <p>Profile</p>
-  </div>
+ </div>
 );
 
+
+/* Nav bar
+ *
+ *
+*/
 const NavBar = () => (
   <div>
     <div>Learn!</div>
@@ -116,7 +121,7 @@ const NavBar = () => (
         <Link to='/'>Logout</Link>
       </li>
       <li>
-        <Link to='/'>Notifications</Link>
+        <Link to='/notifications'>Notifications</Link>
       </li>
     </ul>
   </div>
@@ -151,26 +156,42 @@ const Topics = ({ match }) => (
 
 class RequestForm extends React.Component {
   state = {
-    topic: null,
+    selectedTopic: null,
     description: null,
     selectedTime: null,
   };
 
 
+  topics = [
+    { value: 'maths', label: 'Maths' },
+    { value: 'english', label: 'English' },
+    { value: 'learnChinese', label: 'Learn Chinese' }
+  ];
 
   handleTimeSelect = (time) => {
-    this.setState(
-      Object.assign({}, this.state, {
-
-        selectedTime: time,
-
-      })
+    let newState = Object.assign(
+      {}, this.state, {selectedTime:time}
     );
-  }
+    this.setState(newState);
+
+  };
+
+  handleTopicChange = (topic) => {
+    let newState = Object.assign(
+      {}, this.state, {selectedTopic:topic}
+    );
+    this.setState(newState)
+  };
+
+
   render = () => {
     return (
       <div className="entryField">
-        <TopicSelector/>
+        <TopicSelector
+          options={this.topics}
+          onChange={this.handleTopicChange}
+          selectedOption={this.state.selectedTopic}
+        />
         <DescriptionInput/>
         <TimeSelector
           onTimeSelect={this.handleTimeSelect}
@@ -202,7 +223,7 @@ class TimeSelector extends React.Component {
           duration={time}
           onTimeSelect={this.props.onTimeSelect}
         >
-        {time} 
+        {time}
         </TimeButton>
       );
   });
@@ -242,14 +263,35 @@ class TimeButton extends React.Component {
   };
 }
 
+
 class TopicSelector extends React.Component {
+
+  state = ({
+    selectedOption: null,
+
+  });
+
+  handleChange = (selectedOption) => {
+
+    this.props.onChange(selectedOption);
+  };
+
   render = () => {
     return (
-      TopicSelector
-    )
-  }
 
-}
+      <Creatable
+        value={this.props.selectedOption}
+        onChange={this.handleChange}
+        options={this.props.options}
+      />
+
+    );
+  };
+};
+
+
+
+
 
 
 
