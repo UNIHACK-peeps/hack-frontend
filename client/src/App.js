@@ -121,8 +121,6 @@ const Request = () => (
     <div className = "container">
     <h2> Create a tuition request! </h2>
     <div className = "row">
-      <RequestForm/>
-    <h3>Start searching for tutors!</h3>
      <div class="col s12">
       <div class="card">
         <div class="card-content white-text">
@@ -130,8 +128,7 @@ const Request = () => (
           <RequestForm/>
         </div>
        </div>
-    </div>
-    
+     </div>
     </div> 
     </div>
   </div>
@@ -253,7 +250,7 @@ class NavBar extends React.Component {
 const HomeNavBar = () => (
   <div>
     <nav>
-      <div className="nav-wrapper teal lighten-2 class">
+      <div style={{paddingLeft:'30px', paddingRight:'10px'}} className="nav-wrapper teal lighten-2 class">
         <a href="#" className="brand-logo">Logo</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><Link to='/'>About Us</Link></li>
@@ -466,7 +463,6 @@ class TimeSelector extends React.Component {
     return (
       <div>
         <div>
-          <p>How long will this take? (roughly)</p>
           <p>How long will this take? (Roughly)</p>
         </div>
         <div className="durationSelectBar">
@@ -488,7 +484,7 @@ class TimeButton extends React.Component {
 
     if(this.props.depressed) {
       return(
-        <a onClick={this.handleTimeButtonClick} className="request-time-button waves-effect teal darken-4 waves-teal #004d40 teal darken-4
+        <a onClick={this.handleTimeButtonClick} className="request-time-button waves-effect teal darken-4 waves-teal teal darken-4
  btn">{this.props.children}</a>
       );
 
