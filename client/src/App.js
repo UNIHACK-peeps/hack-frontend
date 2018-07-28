@@ -87,7 +87,24 @@ const Dashboard = () => (
 const Notifications = () => (
   <div>
     <NavBar/>
-    <p>Notifications!</p>
+    <div className = "container">
+      <h2> Notifications! </h2>
+      <div id = "row">
+        <div className = "col s6">
+          <NotifItem/>
+        </div>
+      </div>
+      <div id = "row">
+        <div className = "col s6">
+          <NotifItem/>
+        </div>
+      </div>
+      <div id = "row">
+        <div className = "col s6">
+          <NotifItem/>
+        </div>
+      </div>
+    </div>
   </div>
 );
 
@@ -421,4 +438,19 @@ const MyTutors = () => (
   </div>
 )
 
+const NotifItem = () => (
+  <div>
+    <div className="card horizontal">
+      <div className="card-stacked blue-grey darken-1">
+        <div className="card-content white-tex">
+          <p>Name matched with you as a tutor!</p>
+        </div>
+        <div class="card-action">
+          <a href="#">Accept</a>
+          <a href="#">Dismiss</a>
+        </div>
+      </div>
+    </div>
+  </div>
+)
 export default App;
