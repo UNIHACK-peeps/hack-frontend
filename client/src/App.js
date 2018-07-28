@@ -530,7 +530,7 @@ class TopicSelector extends React.Component {
 //For dashboard page
 
 const UserProfile = () => (
-        <div className="">
+        <div style={{paddingTop:'40px'}} className="">
     			<div class="card horizontal">
       				<div class="card-image">
         				<img src="https://materializecss.com/images/sample-1.jpg"/>
@@ -544,9 +544,6 @@ const UserProfile = () => (
                 				<li>- Maths </li>
                 				<li>- Literature </li>
               				</ul>
-        				</div>
-        				<div class="card-action">
-          					<a href="#">Edit your profile</a>
         				</div>
       				</div>
     			</div>

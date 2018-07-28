@@ -27,8 +27,15 @@
   to { transform: rotate(360deg); }
 }
 
-.body {font-family: Arial, Helvetica, sans-serif;}
+.body {
+	font-family: Arial, Helvetica, sans-serif;
+}
 
+body {
+	background-image: url("https://i.imgur.com/SIV1bqp.png");
+	background-size: cover;
+	background-attachment: fixed;
+}
 
 .homepage-bg-img {
   background-position: center;
@@ -53,7 +60,7 @@
 }
 
 #dashboard-subheading {
-	color: #008080;
+	color: black;
 	text-align: center;
 	font-size: 300%;
 }
@@ -61,6 +68,7 @@
 .request-time-button {
   margin-right:40px;
 }
+
 #request-p {
 	color: black;
 	font-size: 200%;
