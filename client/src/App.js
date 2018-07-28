@@ -126,7 +126,11 @@ const Home = () => (
 const Request = () => (
   <div>
     <NavBar/>
-    <RequestForm/>
+    <div className = "container">
+    <div className = "row">
+      <RequestForm/>
+      </div>
+    </div>
   </div>
 );
 
