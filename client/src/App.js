@@ -88,7 +88,7 @@ const Notifications = () => (
   <div>
     <NavBar/>
     <div className = "container">
-      <h2> Notifications! </h2>
+      <h2 class="heavy"> Notifications </h2>
       <div id = "row">
         <div className = "col s6">
           <NotifItem/>
@@ -531,13 +531,18 @@ const MyTutors = () => (
 const NotifItem = () => (
   <div>
     <div className="card horizontal">
-      <div className="card-stacked blue-grey darken-1">
+      <div className="card-stacked">
         <div className="card-content white-tex">
-          <p>Name matched with you as a tutor!</p>
+          <h4><b>Name</b> matched with you as a tutor!</h4>
+          <b><p>Description</p></b>
+          <h6 className=""><em>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          </em></h6>
         </div>
-        <div class="card-action">
-          <a href="#">Accept</a>
-          <a href="#">Dismiss</a>
+        <div class="card-action ">
+          <a href="#" class="green-text">Accept</a>
+          <a href="#" class="red-text">Dismiss</a>
+          <a href="#" class="">See Profile</a>
         </div>
       </div>
     </div>
