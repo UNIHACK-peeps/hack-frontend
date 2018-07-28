@@ -69,7 +69,7 @@ const Signup = () => (
 const Dashboard = () => (
   <div>
     <NavBar/>
-    <div className = "container" >
+    <div className = "container" style={{paddingTop:'30px'}}>
       <div className="row col s12">
         <div>
           <UserProfileWrapper/>
@@ -278,8 +278,6 @@ class NavBar extends React.Component {
       content:'Dashboard'},
       {to:'/request',
       content:'Request'},
-      {to:'/profile',
-       content:'Profile'},
       {to:'/notifications',
        content:'Notifications'},
       {to:'/',
