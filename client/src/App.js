@@ -119,15 +119,18 @@ const Request = () => (
   <div>
     <NavBar/>
     <div className = "container">
-      <h3>Start searching for tutors!</h3>
-      <div class="col s12">
-        <div class="card">
-          <div class="card-content white-text">
-            <div id="request-p">Select a subject</div>
-            <RequestForm/>
+    <h2> Create a tuition request! </h2>
+    <div className = "row">
+     <div class="col s12">
+      <div class="card">
+        <div class="card-content white-text">
+          <div id="request-p">Select a subject</div>
+          <RequestForm/>
         </div>
        </div>
-      </div>
+     </div>
+    </div> 
+>>>>>>> fa1eaf04e750a5ba14638c55871023d3d74b16b2
     </div>
   </div>
 );
@@ -248,7 +251,7 @@ class NavBar extends React.Component {
 const HomeNavBar = () => (
   <div>
     <nav>
-      <div className="nav-wrapper teal lighten-2 class">
+      <div style={{paddingLeft:'30px', paddingRight:'10px'}} className="nav-wrapper teal lighten-2 class">
         <a href="#" className="brand-logo">Logo</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><Link to='/'>About Us</Link></li>
