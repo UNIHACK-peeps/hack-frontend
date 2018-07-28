@@ -114,7 +114,6 @@ const Home = () => (
     <div className = "homepage-float-text-container">
       <h1> Start Learning Today! </h1>
       <p> Share your knowledge and seek help from tutors all over the world! </p>
-      
       <Link to='/signup'>
         <div className="btn waves-effect waves-light" type="submit" name="action">Sign Up
           <i className="material-icons right">send</i>
@@ -177,7 +176,7 @@ class NavBar extends React.Component {
     return(
       <div>
         <nav>
-          <div style={{paddingLeft:'30px', paddingRight:'10px'}}className="nav-wrapper teal lighten-2 class" >
+          <div style={{paddingLeft:'30px', paddingRight:'10px'}}className="nav-wrapper blue lighten-2 class" >
             <a href="#" className="brand-logo">Logo</a>
 
             <ul id="nav-mobile" className="right hide-on-med-and-down">
