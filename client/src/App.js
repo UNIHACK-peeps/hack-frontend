@@ -144,22 +144,73 @@ const Profile = () => (
  *
 */
 
-const NavBar = () => (
-  <div>
-    <nav>
-      <div className="nav-wrapper teal lighten-2 class">
-        <a href="#" className="brand-logo">Logo</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><Link to='/dashboard'>Dashboard</Link></li>
-          <li><Link to='/request'>Request</Link></li>
-          <li><Link to='/profile'>Profile</Link></li>
-          <li><Link to='/'>Logout</Link></li>
-          <li><Link to='/notifications'>Notifications</Link></li>
-        </ul>
+class NavBar extends React.Component {
+  state = {
+    selectedButton:null
+  }
+
+  handleNavChange = (key) => {
+    let newState = Object.assign(
+        {}, this.state, {
+          selectedButton:key
+        }
+      );
+
+    this.setState(newState);
+  };
+
+  render = () => {
+    let buttons = [
+      {to:'/dashboard',
+      content:'Dashboard'},
+      {to:'/request',
+      content:'Request'},
+      {to:'/profile',
+       content:'Profile'},
+      {to:'/notifications',
+       content:'Notifications'},
+      {to:'/',
+      content:'Logout'},
+    ];
+    let location = "/" + window.location.href.split("//")[1].split("/")[1];
+
+    return(
+      <div>
+        <nav>
+          <div style={{paddingLeft:'30px', paddingRight:'10px'}}className="nav-wrapper teal lighten-2 class" >
+            <a href="#" className="brand-logo">Logo</a>
+
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              {
+                buttons.map((buttonDict) => (
+                  (buttonDict.to == location) ?
+                  (<NavLink
+                     key={newId()}
+                     to={buttonDict.to}
+                     onClick={this.handleChangeNav}
+                     selected={true}
+                    >
+                    {buttonDict.content}
+                  </NavLink>) :
+                  (<NavLink
+                     key={newId()}
+                     to={buttonDict.to}
+                     onClick={this.handleChangeNav}
+                    >
+                    {buttonDict.content}
+                  </NavLink>) 
+
+
+                ))
+              }
+            </ul>
+          </div>
+        </nav>
       </div>
-    </nav>
-</div>
-);
+    )
+  };
+};
+
 const HomeNavBar = () => (
   <div>
     <nav>
@@ -200,6 +251,25 @@ const Topics = ({ match }) => (
 );
 
 
+class NavLink extends React.Component {
+  handleClick = () => {
+    this.props.onClick(this.props.to);
+  }
+  render = () => {
+
+    let selectedStyle = {
+      color:'blue'
+    };
+
+    return (
+      this.props.selected ?
+      <li className="active"><Link to={this.props.to}>{this.props.children}</Link></li>
+       :
+      <li><Link to={this.props.to} onClick={this.handleClick}>{this.props.children}</Link></li>
+    );
+
+  };
+}
 
 
 class RequestForm extends React.Component {
@@ -280,7 +350,7 @@ class RequestForm extends React.Component {
 
   submitData = () => {
     console.log(
-      "Description: " + this.state.description + 
+      "Description: " + this.state.description +
       "Topic: " + this.state.selectedTopic +
       "Selected Time: " + this.state.selectedTime
     );
