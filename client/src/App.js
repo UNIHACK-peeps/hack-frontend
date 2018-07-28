@@ -326,9 +326,8 @@ const HomeNavBar = () => (
   <div>
     <nav>
       <div style={{paddingLeft:'30px', paddingRight:'10px'}} className="nav-wrapper teal lighten-2 class">
-        <a href="#" className="brand-logo">Logo</a>
+        <a className="brand-logo"><img src="favicon-pear.png" style={{paddingtop:'10px'}}></img> Pear</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><Link to='/'>About Us</Link></li>
           <li><Link to='/login'>Login</Link></li>
           <li><Link to='/signup'>Signup</Link></li>
         </ul>
