@@ -72,15 +72,25 @@ const Dashboard = () => (
   <div>
     <NavBar/>
     <div className = "container">
-      <div className = "row">
-        <div className = "col s5">
-          <UserProfile/>
-        </div>
-        <div className = "col s5">
-          <MyTutors/>
-        </div>
+    	<div class="row col s12">
+    			<div>
+          			<UserProfile/>
+       			</div>
+       	</div>
+    	
+    	<div class="row">
+    		<div className = "col s5">
+          		<MyTutors/>
+        	</div>
+        	<div className="col s2"></div>
+        	<div className = "col s5">
+        		<MyStudents/>
+       		</div>
+    	</div>
+        
+        
+        
       </div>
-    </div>
   </div>
 );
 
@@ -497,25 +507,33 @@ class TopicSelector extends React.Component {
 
 const UserProfile = () => (
         <div className="">
-          <div className="card">
-            <div className="card-image">
-              <img src="https://materializecss.com/images/sample-1.jpg" />
-              <span className="card-title">Welcome Mr. Meme!</span>
-              <a className="btn-floating halfway-fab waves-effect waves-light red"><i className="material-icons">add</i></a>
-            </div>
-            <div className="card-content">
-            <p> My Skills: </p>
-              <ul>
-                <li> English </li>
-                <li> Maths </li>
-              </ul>
-            </div>
-          </div>
+    			<div class="card horizontal">
+      				<div class="card-image">
+        				<img src="https://materializecss.com/images/sample-1.jpg"/>
+      				</div>
+     				 <div class="card-stacked">
+        				<div class="card-content">
+        				<h4>Welcome, Donut Theif!</h4>
+          					<h4 class="flow-text"> Your Skills: </h4>
+              				<ul class="flow-text">
+                				<li>- English </li>
+                				<li>- Maths </li>
+                				<li>- Literature </li>
+              				</ul>
+        				</div>
+        				<div class="card-action">
+          					<a href="#">Edit your profile</a>
+        				</div>
+      				</div>
+    			</div>
         </div>
 )
 
 const MyTutors = () => (
   <div>
+  
+  <div id="dashboard-subheading">My Tutors</div>
+  
     <div className="card horizontal">
       <div className="card-stacked">
         <div className="card-content">
@@ -525,7 +543,21 @@ const MyTutors = () => (
           <p>phone: 12346137183</p>
         </div>
         <div className="card-action">
-          <a href="#">This is a link</a>
+          <a href="#">Remove</a>
+        </div>
+      </div>
+    </div>
+    
+    <div className="card horizontal">
+      <div className="card-stacked">
+        <div className="card-content">
+          <h4> Name </h4>
+          <p>Subject: blah</p>
+          <p>email: test@meme.com</p>
+          <p>phone: 12346137183</p>
+        </div>
+        <div className="card-action">
+          <a href="#">Remove</a>
         </div>
       </div>
     </div>
@@ -552,4 +584,39 @@ const NotifItem = () => (
     </div>
   </div>
 )
+const MyStudents = () => (
+  <div> 
+  
+  <div id="dashboard-subheading">My Students</div>
+  
+    <div className="card horizontal">
+      <div className="card-stacked">
+        <div className="card-content">
+          <h4> Name </h4>
+          <p>Subject: blah</p>
+          <p>email: test@meme.com</p>
+          <p>phone: 12346137183</p>
+        </div>
+        <div className="card-action">
+          <a href="#">Remove</a>
+        </div>
+      </div>
+    </div>
+    
+    <div className="card horizontal">
+      <div className="card-stacked">
+        <div className="card-content">
+          <h4> Name </h4>
+          <p>Subject: blah</p>
+          <p>email: test@meme.com</p>
+          <p>phone: 12346137183</p>
+        </div>
+        <div className="card-action">
+          <a href="#">Remove</a>
+        </div>
+      </div>
+    </div>
+  </div>
+)
+
 export default App;
