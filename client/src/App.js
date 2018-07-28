@@ -174,12 +174,10 @@ class RequestForm extends React.Component {
 
 
   loadSubjectsFromServer = () => {
-    let component = this;
     return axios.get('http://localhost:8000/main/subjects')
-                .then(function (response) {
-                  console.log(component.state);
-                  let newState = Object.assign(
-                    {}, component.state, {
+                .then((response) => {
+                  var newState = Object.assign(
+                    {}, this.state, {
                       topics: response.data.map((data) =>(
                         {
                         value:"" + data.id,
@@ -190,23 +188,21 @@ class RequestForm extends React.Component {
                       ))
                     }
                   );
-                  console.log("newstate");
-                  console.log(newState);
-                  console.log("newstate");
-                  component.setState({newState});
+                  this.setState(newState);
                 })
                 .catch(function (error) {
                   // handle error
                   console.log(error);
                 })
-                .then(function () {
+                .then(() => {
                   // always executed
                 });
   };
 
 
   componentWillMount = () => {
-    this.loadSubjectsFromServer()
+    this.loadSubjectsFromServer();
+    this.setState(this.state);
   };
 
   handleTimeSelect = (time) => {
