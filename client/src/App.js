@@ -181,7 +181,7 @@ class NotificationHub extends React.Component {
     notifications: [
       {
         isTutor: true,
-        description: "Yert",
+        description: "I'm interested in learning some English jokes to lighten the mood when I visit my host family",
         subjectId:1,
         name: "Greg",
         subject:"English"
@@ -198,7 +198,7 @@ class NotificationHub extends React.Component {
   render = () => (
     <div>
       {this.state.notifications.map((notificationObject) => (
-         <div id = "row">
+         <div id = "row" key = {newId()}>
            <div className = "col s6">
              <NotifItem info={notificationObject}/>
            </div>
@@ -607,7 +607,7 @@ class UserProfile extends React.Component {
               				</ul>
         				</div>
         				<div className="card-action">
-          					<a href="#">Edit your profile</a>
+          					<Link to="/profile"><a href="#">Edit your profile</a></Link>
         				</div>
       				</div>
     			</div>
@@ -664,34 +664,90 @@ class NotifItem extends React.Component {
     <div>
       <div className="card horizontal">
         <div className="card-stacked">
-          <div className="card-content white-tex">
-            <h4>
-              <b>{this.props.info.name} </b>
-              matched with you as a 
-              <b> {
-                this.props.info.isTutor ?
-                "Tutor" :
-                "Tutee"
-              } </b>
-              for
-              <b> {this.props.info.subject}</b>
-            </h4>
-            <b><p>Description</p></b>
-            <h6 className=""><em>
-              {this.props.info.description}
-            </em></h6>
-          </div>
-          <div class="card-action ">
-            <a href="#" class="green-text">Accept</a>
-            <a href="#" class="red-text">Dismiss</a>
-            <a href="#" class="">See Profile</a>
-          </div>
+          <TutorTuteeText
+            name={this.props.info.name}
+            subject={this.props.info.subject}
+            isTutor={this.props.info.isTutor}
+            description={this.props.info.description}
+          />
         </div>
       </div>
     </div>
   )
 }
 
+
+
+class TutorTuteeText extends React.Component {
+  render = () => {
+    if (this.props.isTutor) {
+      return(
+        <div>
+
+          <div className="card-content white-tex">
+            <h4>
+              <b>{this.props.name} </b>
+              has accepted your offer to <b>Tutor</b> you
+              <b> {this.props.subject}</b>
+            </h4>
+            <br/>
+            <h5> <b>
+              { this.props.isTutor ?
+                "Your request" :
+                "Their request"
+              }
+            </b></h5>
+            <b><p>Description</p></b>
+            <h6 className=""><em>
+              {this.props.description}
+            </em></h6>
+            <b><p>Frequency:</p></b>
+            <h6 className=""><em>
+              Infrequent
+            </em></h6>
+          </div>
+          <div class="card-action ">
+            <a href="#" class="green-text" >Contact</a>
+          </div>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div>
+          <div className="card-content white-tex">
+            <h4>
+              <b>{this.props.name} </b>
+                wants to be <b>Tutored</b> by you in
+              <b> {this.props.subject}</b>
+            </h4>
+            <br/>
+            <h5> <b>
+              { this.props.isTutor ?
+                "Your request" :
+                "Their request"
+              }
+            </b></h5>
+            <b><p>Description</p></b>
+            <h6 className=""><em>
+              {this.props.description}
+            </em></h6>
+            <b><p>Frequency:</p></b>
+            <h6 className=""><em>
+              Infrequent
+            </em></h6>
+          </div>
+          <div class="card-action ">
+            <a href="#" class="green-text" >Accept</a>
+            <a href="#" class="red-text">Dismiss</a>
+            <a href="#" class="">See Profile</a>
+          </div>
+        </div>
+      )
+    }
+  }
+
+}
 class MyStudentsWrapper extends React.Component {
   state = {
     tuteeList:[]
