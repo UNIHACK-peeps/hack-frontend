@@ -290,8 +290,8 @@ class NavBar extends React.Component {
     return(
       <div>
         <nav>
-          <div style={{paddingLeft:'30px', paddingRight:'10px'}}className="nav-wrapper blue lighten-2 class" >
-            <Link to='/'><a href="#" className="brand-logo">Logo</a></Link>
+          <div style={{paddingLeft:'30px', paddingRight:'10px'}}className="nav-wrapper blue lighten-2 class">
+            <a className="brand-logo"><img src="favicon-pear.png" style={{paddingtop:'10px'}}></img> Pear</a>
 
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               {

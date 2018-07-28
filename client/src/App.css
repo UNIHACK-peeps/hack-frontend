@@ -32,9 +32,8 @@
 }
 
 body {
-	background-image: url("https://i.imgur.com/SIV1bqp.png");
-	background-size: cover;
-	background-attachment: fixed;
+	background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/merely_cubed.png");
+	background-attachment: repeat;
 }
 
 .homepage-bg-img {
