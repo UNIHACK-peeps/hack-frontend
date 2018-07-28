@@ -130,7 +130,6 @@ const Request = () => (
        </div>
      </div>
     </div> 
->>>>>>> fa1eaf04e750a5ba14638c55871023d3d74b16b2
     </div>
   </div>
 );
