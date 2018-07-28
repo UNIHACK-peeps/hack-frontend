@@ -45,5 +45,9 @@
   left: 0%;
   transform: translate(0%,-50%);
   -ms-transform: translate(-0%,-50%);
-  margin-left:5%
+  margin-left:5%;
+  background-color:rgba(0, 0, 0, 0.748);
+  border: 3px solid black;
+  color: white;
+  padding: 20px;
 }
