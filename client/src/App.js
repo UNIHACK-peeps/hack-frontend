@@ -723,7 +723,6 @@ class TutorTuteeText extends React.Component {
     if (this.props.isTutor) {
       return(
         <div>
-
           <div className="card-content white-tex">
             <h4>
               <b>{this.props.name} </b>
@@ -739,11 +738,15 @@ class TutorTuteeText extends React.Component {
             </b></h5>
             <b><p>Description</p></b>
             <h6 className=""><em>
-              {this.props.description}
+            <blockquote>
+      			 {this.props.description}
+   			</blockquote>
             </em></h6>
-            <b><p>Frequency:</p></b>
+            <b><p>Level of help requested</p></b>
             <h6 className=""><em>
-              Infrequent
+             <blockquote>
+      			 Infrequent
+   			</blockquote>
             </em></h6>
           </div>
           <div class="card-action ">
@@ -768,13 +771,20 @@ class TutorTuteeText extends React.Component {
                 "Their request"
               }
             </b></h5>
+            
             <b><p>Description</p></b>
+            
             <h6 className=""><em>
-              {this.props.description}
+            <blockquote>
+      			{this.props.description}
+   			</blockquote>
+              
             </em></h6>
-            <b><p>Frequency:</p></b>
+            <b><p>Level of help requested</p></b>
             <h6 className=""><em>
-              Infrequent
+            <blockquote>
+      			 Infrequent
+   			</blockquote>
             </em></h6>
           </div>
           <div class="card-action ">
