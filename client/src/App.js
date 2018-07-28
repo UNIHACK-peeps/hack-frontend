@@ -5,6 +5,10 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import newId from './utils/newid';
 import Select from 'react-select';
 import Creatable from 'react-select/lib/Creatable';
+import Server from './utils/server';
+
+const server = new Server();
+const axios = require("axios");
 /* const App = () => (
  *   <Router>
  *     <div>
@@ -157,16 +161,53 @@ const Topics = ({ match }) => (
 class RequestForm extends React.Component {
   state = {
     selectedTopic: null,
-    description: null,
+    description: "",
     selectedTime: null,
+    topics:
+    [
+      { value: 'maths', label: 'Maths' },
+      { value: 'english', label: 'English' },
+      { value: 'learnChinese', label: 'Learn Chinese' },
+    ],
   };
 
 
-  topics = [
-    { value: 'maths', label: 'Maths' },
-    { value: 'english', label: 'English' },
-    { value: 'learnChinese', label: 'Learn Chinese' }
-  ];
+
+  loadSubjectsFromServer = () => {
+    let component = this;
+    return axios.get('http://localhost:8000/main/subjects')
+                .then(function (response) {
+                  console.log(component.state);
+                  let newState = Object.assign(
+                    {}, component.state, {
+                      topics: response.data.map((data) =>(
+                        {
+                        value:"" + data.id,
+                        label:data.name
+                        }
+
+
+                      ))
+                    }
+                  );
+                  console.log("newstate");
+                  console.log(newState);
+                  console.log("newstate");
+                  component.setState({newState});
+                })
+                .catch(function (error) {
+                  // handle error
+                  console.log(error);
+                })
+                .then(function () {
+                  // always executed
+                });
+  };
+
+
+  componentWillMount = () => {
+    this.loadSubjectsFromServer()
+  };
 
   handleTimeSelect = (time) => {
     let newState = Object.assign(
@@ -183,21 +224,46 @@ class RequestForm extends React.Component {
     this.setState(newState)
   };
 
+  handleDescriptionChange = (event) => {
+    let newState = Object.assign(
+      {}, this.state, {
+        description:event.target.value
+      }
+    );
+    this.setState(newState)
+  };
+
+
+  handleSubmit = () => {
+    this.submitData();
+  };
+
+  submitData = () => {
+    console.log(
+      "Description: " + this.state.description + 
+      "Topic: " + this.state.selectedTopic +
+      "Selected Time: " + this.state.selectedTime
+    );
+  };
 
   render = () => {
     return (
       <div className="entryField">
         <TopicSelector
-          options={this.topics}
+          options={this.state.topics}
           onChange={this.handleTopicChange}
           selectedOption={this.state.selectedTopic}
         />
-        <DescriptionInput/>
+        <DescriptionInput
+          onChange={this.handleDescriptionChange}
+          value={this.state.description}
+        />
         <TimeSelector
           onTimeSelect={this.handleTimeSelect}
           selectedTime={this.state.selectedTime}
         />
         <p> {this.state.selectedTime}</p>
+        <a onClick={this.handleSubmit} className="waves-effect waves-light btn">Submit</a>
       </div>
     )
   }
@@ -206,9 +272,29 @@ class RequestForm extends React.Component {
 // Some sort of search and select topic selector
 
 class DescriptionInput extends React.Component {
-  render = () => {
-    return (<p>Description Input</p>);
+
+  handleChange = (e) => {
+    this.props.onChange(e);
   };
+
+
+
+  render = () => {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Enter a short description!
+          <input
+            type="text"
+            value={this.props.value}
+            onChange={this.handleChange}
+          />
+        </label>
+
+      </form>
+    );
+  };
+
 }
 
 
@@ -250,18 +336,18 @@ class TimeButton extends React.Component {
   render = () => {
     let depressedStyle = {borderStyle:"inset"}
 
-    return (
-      <button
-      style={this.props.depressed ?
-             depressedStyle :
-             null
-      }
-        onClick={this.handleTimeButtonClick}
-      >{this.props.children}</button>
-    );
+    if(this.props.depressed) {
+      return(
+        <a onClick={this.handleTimeButtonClick} className="waves-effect waves-teal btn">{this.props.children}</a>
+      );
 
+    } else {
+      return(
+        <a onClick={this.handleTimeButtonClick} className="waves-effect btn">{this.props.children}</a>
+      );
+    };
   };
-}
+};
 
 
 class TopicSelector extends React.Component {
@@ -273,7 +359,10 @@ class TopicSelector extends React.Component {
 
   handleChange = (selectedOption) => {
 
-    this.props.onChange(selectedOption);
+    console.log("Changed to ")
+    console.log(selectedOption)
+
+    this.props.onChange(selectedOption.value);
   };
 
   render = () => {
