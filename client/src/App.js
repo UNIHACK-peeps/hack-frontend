@@ -74,16 +74,16 @@ const Dashboard = () => (
     <div className = "container" >
       <div className="row col s12">
         <div>
-          <UserProfile/>
+          <UserProfileWrapper/>
         </div>
       </div>
     	<div class="row">
     		<div className = "col s5">
-          		<MyTutors/>
+          		<MyTutorWrapper/>
         	</div>
         	<div className="col s2"></div>
         	<div className = "col s5">
-        		<MyStudents/>
+        		<MyStudentsWrapper/>
        		</div>
     	</div>
       </div>
@@ -148,6 +148,35 @@ const Profile = () => (
  *
 */
 class NotificationHub extends React.Component {
+  componentWillMount = () => {
+    axios.get('http://127.0.0.1:8000/main/Notifications/?user_id=1')
+    .then((response) => {
+      console.log(response);
+      let notifs = []
+
+      for(let key in Object.keys(response.data.tutors)) {
+        console.log("kk",key)
+        let notifObj = {
+          subject:Object.keys(response.data.tutors)[key],
+          isTutor:true,
+          name: response.data.tutors[Object.keys(response.data.tutors)[key]][0].name,
+          tutorID:response.data.tutors[Object.keys(response.data.tutors)[key]][0].id
+        }
+        notifs.push(notifObj)
+      }
+
+      for(let key in Object.keys(response.data.tutors)) {
+        console.log("k",key)
+      }
+
+      var newState = Object.assign(
+        {}, this.state, {
+          notifications:notifs
+        } );
+        this.setState(newState);
+  });
+}
+
   state = {
     notifications: [
       {
@@ -166,7 +195,6 @@ class NotificationHub extends React.Component {
       }
     ],
   };
-
   render = () => (
     <div>
       {this.state.notifications.map((notificationObject) => (
@@ -179,7 +207,7 @@ class NotificationHub extends React.Component {
       )};
     </div>
   );
-};
+}
 
 class NavBar extends React.Component {
   state = {
@@ -535,65 +563,100 @@ class TopicSelector extends React.Component {
 
 
 //For dashboard page
+class UserProfileWrapper extends React.Component {
+  state = {
+    userInfo: {
+      name:"Donut Theif",
+      skills:["English",
+              "Literature",
+              "Dank memes"],
+      
+    }
+  }
+  componentWillMount = () => {
+    axios.get('http://localhost:8000/main/users/?format=json')
+    .then((response) => {
+      console.log(response)
+    });
+  };
+  render() {
+    console.log(this.state.userInfo)
+    return(
+      <div>
+        <UserProfile userData = {this.state.userInfo}/>
+      </div>
+    )
+    
+  }
 
-const UserProfile = () => (
+}
+
+class UserProfile extends React.Component {
+       render = () => (
         <div className="">
-    			<div class="card horizontal">
-      				<div class="card-image">
+    			<div className="card horizontal">
+      				<div className="card-image">
         				<img src="https://materializecss.com/images/sample-1.jpg"/>
       				</div>
-     				 <div class="card-stacked">
-        				<div class="card-content">
-        				<h4>Welcome, Donut Theif!</h4>
-          					<h4 class="flow-text"> Your Skills: </h4>
-              				<ul class="flow-text">
-                				<li>- English </li>
-                				<li>- Maths </li>
-                				<li>- Literature </li>
+     				 <div className="card-stacked">
+        				<div className="card-content">
+        				<h4>Welcome, {this.props.userData.name} </h4>
+          					<h4 className="flow-text"> Your Skills: </h4>
+              				<ul className="flow-text">
+                        {this.props.userData.skills.map(skill => <li> -  {skill} </li>)}
               				</ul>
         				</div>
-        				<div class="card-action">
+        				<div className="card-action">
           					<a href="#">Edit your profile</a>
         				</div>
       				</div>
     			</div>
         </div>
-)
+          )
+}
+class MyTutorWrapper extends React.Component {
+  state = {
+    tutorList:[]
+  }
+  componentWillMount = () => (
+    axios.get('http://127.0.0.1:8000/main/getMyTutors/?user_id=1')
+    .then((response) => {
+      console.log(response);
+      this.setState({'tutorList':response.data})
+      console.log("state")
+      console.log(this.state.tutorList)
+    })
+  )
 
-const MyTutors = () => (
-  <div>
-  
-  <div id="dashboard-subheading">My Tutors</div>
-  
-    <div className="card horizontal">
-      <div className="card-stacked">
-        <div className="card-content">
-          <h4> Name </h4>
-          <p>Subject: blah</p>
-          <p>email: test@meme.com</p>
-          <p>phone: 12346137183</p>
-        </div>
-        <div className="card-action">
-          <a href="#">Remove</a>
+  render = () => (
+    <div>
+      {this.state.tutorList.map(tutorItem =>  <MyTutors tutor = {tutorItem} />)} 
+    </div>
+  )
+}
+class MyTutors extends React.Component {
+
+    render = () => (
+      <div>
+      
+      <div id="dashboard-subheading">My Tutors</div>
+      
+        <div className="card horizontal">
+          <div className="card-stacked">
+            <div className="card-content">
+              <h4> {this.props.tutor.name}  </h4>
+              <p>Subject: blah</p>
+              <p>email: test@meme.com</p>
+              <p>phone: 12346137183</p>
+            </div>
+            <div className="card-action">
+              <a href="#">Remove</a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <div className="card horizontal">
-      <div className="card-stacked">
-        <div className="card-content">
-          <h4> Name </h4>
-          <p>Subject: blah</p>
-          <p>email: test@meme.com</p>
-          <p>phone: 12346137183</p>
-        </div>
-        <div className="card-action">
-          <a href="#">Remove</a>
-        </div>
-      </div>
-    </div>
-  </div>
-)
+    )
+}
 
 class NotifItem extends React.Component {
 
@@ -628,7 +691,29 @@ class NotifItem extends React.Component {
     </div>
   )
 }
-const MyStudents = () => (
+
+class MyStudentsWrapper extends React.Component {
+  state = {
+    tuteeList:[]
+  }
+  componentWillMount = () => (
+    axios.get('http://127.0.0.1:8000/main/getMyTutees/?user_id=2')
+    .then((response) => {
+      console.log("tutees")
+      console.log(response);
+      this.setState({'tuteeList':response.data})
+    })
+  )
+
+  render = () => (
+    <div>
+      {this.state.tuteeList.map(tuteeItem =>  <MyStudents tutee = {tuteeItem} />)} 
+    </div>
+  )
+}
+class MyStudents extends React.Component {
+
+render = () => (
   <div> 
   
   <div id="dashboard-subheading">My Students</div>
@@ -636,7 +721,7 @@ const MyStudents = () => (
     <div className="card horizontal">
       <div className="card-stacked">
         <div className="card-content">
-          <h4> Name </h4>
+          <h4> {this.props.tutee.name} </h4>
           <p>Subject: blah</p>
           <p>email: test@meme.com</p>
           <p>phone: 12346137183</p>
@@ -646,21 +731,7 @@ const MyStudents = () => (
         </div>
       </div>
     </div>
-    
-    <div className="card horizontal">
-      <div className="card-stacked">
-        <div className="card-content">
-          <h4> Name </h4>
-          <p>Subject: blah</p>
-          <p>email: test@meme.com</p>
-          <p>phone: 12346137183</p>
-        </div>
-        <div className="card-action">
-          <a href="#">Remove</a>
-        </div>
-      </div>
     </div>
-  </div>
 )
-
+}
 export default App;
