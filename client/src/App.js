@@ -6,6 +6,7 @@ import newId from './utils/newid';
 import Select from 'react-select';
 import Creatable from 'react-select/lib/Creatable';
 import Server from './utils/server';
+import $ from 'jquery';
 
 const server = new Server();
 const axios = require("axios");
@@ -70,7 +71,16 @@ const Signup = () => (
 const Dashboard = () => (
   <div>
     <NavBar/>
-    <p>Dashboard!</p>
+    <div className = "container">
+      <div className = "row">
+        <div className = "col s5">
+          <UserProfile/>
+        </div>
+        <div className = "col s5">
+          <MyTutors/>
+        </div>
+      </div>
+    </div>
   </div>
 );
 
@@ -108,28 +118,24 @@ const Profile = () => (
  *
  *
 */
+
 const NavBar = () => (
   <div>
-    <div>Learn!</div>
-    <ul>
-      <li>
-        <Link to='/dashboard'>Dashboard</Link>
-      </li>
-      <li>
-        <Link to='/request'>Request</Link>
-      </li>
-      <li>
-        <Link to='/profile'>Profile</Link>
-      </li>
-      <li>
-        <Link to='/'>Logout</Link>
-      </li>
-      <li>
-        <Link to='/notifications'>Notifications</Link>
-      </li>
-    </ul>
-  </div>
+    <nav>
+      <div className="nav-wrapper teal lighten-2 class">
+        <a href="#" className="brand-logo">Logo</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><Link to='/dashboard'>Dashboard</Link></li>
+          <li><Link to='/request'>Request</Link></li>
+          <li><Link to='/profile'>Profile</Link></li>
+          <li><Link to='/'>Logout</Link></li>
+          <li><Link to='/notifications'>Notifications</Link></li>
+        </ul>
+      </div>
+    </nav>
+</div>
 );
+
 
 const Topics = ({ match }) => (
   <div>
@@ -376,9 +382,43 @@ class TopicSelector extends React.Component {
 
 
 
+//For dashboard page
 
+const UserProfile = () => (
+        <div className="">
+          <div className="card">
+            <div className="card-image">
+              <img src="https://materializecss.com/images/sample-1.jpg" />
+              <span className="card-title">Welcome Mr. Meme!</span>
+              <a className="btn-floating halfway-fab waves-effect waves-light red"><i className="material-icons">add</i></a>
+            </div>
+            <div className="card-content">
+            <p> My Skills: </p>
+              <ul>
+                <li> English </li>
+                <li> Maths </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+)
 
-
-
+const MyTutors = () => (
+  <div>
+    <div className="card horizontal">
+      <div className="card-stacked">
+        <div className="card-content">
+          <h4> Name </h4>
+          <p>Subject: blah</p>
+          <p>email: test@meme.com</p>
+          <p>phone: 12346137183</p>
+        </div>
+        <div className="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+)
 
 export default App;
