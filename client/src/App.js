@@ -57,8 +57,11 @@ const App = () => (
 );
 
 const Login = () => (
+  <div>
+  <NavBar/>
   <div className="container">
     <LoginForm/>
+  </div>
   </div>
 );
 
@@ -206,8 +209,8 @@ class NotificationHub extends React.Component {
           notifications:notifs
         } );
         this.setState(newState);
-  });
-}
+    });
+  } 
 
   state = {
     notifications: [
@@ -479,6 +482,7 @@ class RequestForm extends React.Component {
           selectedTime={this.state.selectedTime}
         />
         <p> {this.state.selectedTime}</p>
+        <br/>
         <a onClick={this.handleSubmit} className="waves-effect waves-light btn  light-green">Submit</a>
       </div>
     )
@@ -607,7 +611,7 @@ class TopicSelector extends React.Component {
 class UserProfileWrapper extends React.Component {
   state = {
     userInfo: {
-      name:"Donut Theif",
+      name:"Foobius Barius",
       skills:["English",
               "Literature",
               "Dank memes"],
@@ -686,7 +690,7 @@ class MyTutors extends React.Component {
           <div className="card-stacked">
             <div className="card-content">
               <h4> {this.props.tutor.name}  </h4>
-              <p>Subject: blah</p>
+              <p>Subject: Memes</p>
               <p>email: test@meme.com</p>
               <p>phone: 12346137183</p>
             </div>
@@ -723,10 +727,11 @@ class TutorTuteeText extends React.Component {
     if (this.props.isTutor) {
       return(
         <div>
+
           <div className="card-content white-tex">
             <h4>
               <b>{this.props.name} </b>
-              has accepted your offer to <b>Tutor</b> you
+              has accepted your offer to <b>Tutor</b> you in
               <b> {this.props.subject}</b>
             </h4>
             <br/>
@@ -738,15 +743,11 @@ class TutorTuteeText extends React.Component {
             </b></h5>
             <b><p>Description</p></b>
             <h6 className=""><em>
-            <blockquote>
-      			 {this.props.description}
-   			</blockquote>
+              {this.props.description}
             </em></h6>
-            <b><p>Level of help requested</p></b>
+            <b><p>Frequency:</p></b>
             <h6 className=""><em>
-             <blockquote>
-      			 Infrequent
-   			</blockquote>
+              Infrequent
             </em></h6>
           </div>
           <div class="card-action ">
@@ -771,20 +772,13 @@ class TutorTuteeText extends React.Component {
                 "Their request"
               }
             </b></h5>
-            
             <b><p>Description</p></b>
-            
             <h6 className=""><em>
-            <blockquote>
-      			{this.props.description}
-   			</blockquote>
-              
+              {this.props.description}
             </em></h6>
-            <b><p>Level of help requested</p></b>
+            <b><p>Frequency:</p></b>
             <h6 className=""><em>
-            <blockquote>
-      			 Infrequent
-   			</blockquote>
+              Infrequent
             </em></h6>
           </div>
           <div class="card-action ">
